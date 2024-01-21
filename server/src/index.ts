@@ -2,15 +2,14 @@ import express from "express";
 import cors from "cors";
 import { MongoClient } from "mongodb";
 import Router from "./routes";
-import dotenv from "dotenv";
 const app = express();
 const port = 5000;
-dotenv.config();
+
 app.use(cors());
 app.use(Router);
 
 const url = "mongodb://0.0.0.0:27017/E-commerce";
-const Client = new MongoClient(process.env.url || url);
+const Client = new MongoClient(url);
 app.get("/", (_req, res) => {
   res.send("connected successfully");
 });
