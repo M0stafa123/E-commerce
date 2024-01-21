@@ -14,6 +14,6 @@ app.get("/", (_req, res) => {
   res.send("connected successfully");
 });
 app.listen(port, async () => {
-  // await Client.connect();
+  await Client.connect();
   console.log(`server running on http://localhost:${port}`);
 });
