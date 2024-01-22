@@ -2,10 +2,11 @@ import express from "express";
 import bodyParser from "body-parser";
 import UserModel from "../Models/User";
 import CryptoJS from "crypto-js";
+import jwt, { Secret } from "jsonwebtoken";
 const authRoute = express.Router();
+
 authRoute.use(bodyParser.json());
 // REGISTER
-
 authRoute.post("/register", async (req, res) => {
   let err;
   try {
@@ -13,6 +14,7 @@ authRoute.post("/register", async (req, res) => {
       username: req.body.username,
       password: CryptoJS.AES.encrypt(req.body.password, "Elderstore"),
       email: req.body.email,
+      role: req.body.role,
     });
     res.status(201).json(newUser);
   } catch (error: any) {
@@ -35,7 +37,16 @@ authRoute.post("/login", async (req, res) => {
       if (pass !== req.body.password) {
         res.status(401).json("wrong password");
       } else {
-        res.send(user);
+        const { password, ...other } = user.toJSON();
+        const getToken = jwt.sign(
+          {
+            id: user._id,
+            role: user.role,
+          },
+          process.env.JWT as Secret,
+          { expiresIn: "3d" }
+        );
+        res.json({ ...other, getToken });
       }
     } else {
       res.status(401).json("wrong username");

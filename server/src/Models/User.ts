@@ -10,7 +10,7 @@ const UserModel = mongoose.model(
       lastName: { type: String },
       address: { type: String },
       phone: { type: Number },
-      role: { type: String, enum: ["user", "admin", "supervisor"], default: "user" },
+      role: { type: String, default: "user" },
     },
     { timestamps: true }
   )
