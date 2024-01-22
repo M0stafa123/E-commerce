@@ -1,6 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-
-mongoose.connect("mongodb://0.0.0.0:27017/E-commerce");
 const UserModel = mongoose.model(
   "users",
   new Schema(
