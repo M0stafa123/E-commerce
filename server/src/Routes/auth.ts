@@ -21,8 +21,8 @@ authRoute.post("/register", async (req, res) => {
     } else {
       err = `${Object.keys(error.errors)[0]} is required`;
     }
-    console.log(err);
-    res.status(500).json(error);
+
+    res.status(500).json(err);
   }
 });
 // LOGIN
