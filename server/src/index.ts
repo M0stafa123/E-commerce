@@ -8,11 +8,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 // app.use(cors());
 app.use(Router);
-const url =
-  "mongodb+srv://Mostafa:Whatisur1@e-commerce.thmtvd0.mongodb.net/shop?retryWrites=true&w=majority";
-
 mongoose
-  .connect(process.env.URl || url)
+  .connect(process.env.URl as string)
   .then(() => console.log("connected successfully"));
 app.get("/", (_req, res) => {
   res.send("connected successfully");
