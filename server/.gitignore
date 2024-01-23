@@ -10,7 +10,7 @@ node_modules/
 
 # production
 /build
-
+/src/test.js
 # misc
 .env
 .DS_Store

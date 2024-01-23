@@ -23,7 +23,6 @@ authRoute.post("/register", async (req, res) => {
     } else {
       err = `${Object.keys(error.errors)[0]} is required`;
     }
-
     res.status(500).json(err);
   }
 });
@@ -35,7 +34,7 @@ authRoute.post("/login", async (req, res) => {
       const hash = CryptoJS.AES.decrypt(user.password, "Elderstore");
       const pass = hash.toString(CryptoJS.enc.Utf8);
       if (pass !== req.body.password) {
-        res.status(401).json("wrong password");
+        res.status(401).json("Wrong username or password");
       } else {
         const { password, ...other } = user.toJSON();
         const getToken = jwt.sign(
@@ -49,7 +48,7 @@ authRoute.post("/login", async (req, res) => {
         res.json({ ...other, getToken });
       }
     } else {
-      res.status(401).json("wrong username");
+      res.status(401).json("Wrong username or password");
     }
   } catch (error) {
     res.status(500).json(error);
