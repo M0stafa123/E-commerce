@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 // app.use(cors());
 app.use(Router);
 mongoose
-  .connect(process.env.URl as string)
+  .connect(process.env.URL as string)
   .then(() => console.log("connected successfully"));
 app.get("/", (_req, res) => {
   res.send("connected successfully");
