@@ -16,9 +16,7 @@ const UserModel = mongoose.model(
       },
       firstName: { type: String },
       lastName: { type: String },
-      address: {
-        type: String,
-      },
+      address: { type: String },
       phone: { type: Number },
       role: { type: String, default: "user" },
     },

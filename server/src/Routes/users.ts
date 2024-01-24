@@ -2,17 +2,31 @@ import UserModel from "../Models/User";
 import express from "express";
 import bodyParser from "body-parser";
 import { verifyAuth, verifyAdmin } from "./verifyToken";
+import { Document } from "mongoose";
 import CryptoJS from "crypto-js";
+interface USER {
+  username: String;
+  password: String;
+  email: String;
+  toJSON(): any;
+}
 const userRoute = express.Router();
 userRoute.use(bodyParser.json());
 // Get
 userRoute.get("/find/:id?", verifyAdmin, async (req, res) => {
   if (req.params.id) {
-    const user = await UserModel.findById(req.params.id);
-    res.status(200).json(user);
+    const user: USER | null = await UserModel.findById(req.params.id);
+    const { password, ...others } = user?.toJSON();
+    res.status(200).json(others);
   } else {
-    const users = await UserModel.find({});
-    res.status(200).json(users);
+    const users: USER[] = await UserModel.find({});
+    let safe: USER[] = await Promise.all(
+      users.map((e) => {
+        const { password, ...others } = e.toJSON();
+        return others;
+      })
+    );
+    res.status(200).json(safe);
   }
 });
 // Update
