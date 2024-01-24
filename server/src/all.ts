@@ -36,6 +36,16 @@ all.get("/", (req, res) => {
       "products/find/:id": ["GET", "get one product", "any one can see "],
       "products/": ["POST", "create a new product", "admins only"],
       "products/:id": ["PUT", "DELETE", "update or delete a product", "admins only"],
+      fields: {
+        title: ["String", "required", "unique"],
+        desc: ["String", "required"],
+        img: ["String", "required"],
+        category: ["Array", "required"],
+        size: ["String"],
+        color: ["String"],
+        price: "Number",
+        stock: "Number",
+      },
       filtering: "coming soon",
     },
   });
