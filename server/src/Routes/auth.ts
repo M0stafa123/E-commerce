@@ -51,6 +51,7 @@ authRoute.post("/login", async (req, res) => {
       res.status(401).json("Wrong username or password");
     }
   } catch (error) {
+    console.error("Error in authentication:", error);
     res.status(500).json(error);
   }
 });
