@@ -2,7 +2,6 @@ import UserModel from "../Models/User";
 import express from "express";
 import bodyParser from "body-parser";
 import { verifyAuth, verifyAdmin } from "./verifyToken";
-import { Document } from "mongoose";
 import CryptoJS from "crypto-js";
 interface USER {
   username: String;

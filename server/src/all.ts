@@ -50,5 +50,9 @@ all.get("/", (req, res) => {
       "products/search?category='category'": ["GET"],
       filtering: "coming soon",
     },
+    cart: {
+      "cart/": ["POST", "creates a new cart for a user "],
+      "cart/:id": ["GET", "get the user cart"],
+    },
   });
 });
