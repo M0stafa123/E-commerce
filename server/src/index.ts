@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
-// app.use(cors());
+app.use(cors());
 app.use(Router);
 mongoose
   .connect(process.env.URL as string)

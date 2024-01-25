@@ -46,6 +46,8 @@ all.get("/", (req, res) => {
         price: "Number",
         stock: "Number",
       },
+      "products/search?keyword='search word'": ["GET"],
+      "products/search?category='category'": ["GET"],
       filtering: "coming soon",
     },
   });
