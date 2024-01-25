@@ -29,7 +29,7 @@ authRoute.post("/register", async (req, res) => {
 // LOGIN
 authRoute.post("/login", async (req, res) => {
   try {
-    // const user = await UserModel.findOne({ username: req.body.username });
+    const user = await UserModel.findOne({ username: req.body.username });
     // if (user) {
     //   const hash = CryptoJS.AES.decrypt(user.password, "Elderstore");
     //   const pass = hash.toString(CryptoJS.enc.Utf8);
@@ -50,7 +50,7 @@ authRoute.post("/login", async (req, res) => {
     // } else {
     //   res.status(401).json("Wrong username or password");
     // }
-    res.status(200).json("try block is working");
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json(error);
   }
