@@ -50,7 +50,7 @@ authRoute.post("/login", async (req, res) => {
     // } else {
     //   res.status(401).json("Wrong username or password");
     // }
-    console.log("try block is working");
+    res.status(200).json("try block is working");
   } catch (error) {
     res.status(500).json(error);
   }

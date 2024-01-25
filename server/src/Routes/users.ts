@@ -29,7 +29,7 @@ userRoute.get("/find/:id?", verifyAdmin, async (req, res) => {
   }
 });
 // Update
-userRoute.put("/:id", verifyAuth, async (req, res) => {
+userRoute.put("/:id", verifyAdmin, async (req, res) => {
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,
