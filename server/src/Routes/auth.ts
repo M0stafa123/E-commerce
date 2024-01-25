@@ -29,27 +29,28 @@ authRoute.post("/register", async (req, res) => {
 // LOGIN
 authRoute.post("/login", async (req, res) => {
   try {
-    const user = await UserModel.findOne({ username: req.body.username });
-    if (user) {
-      const hash = CryptoJS.AES.decrypt(user.password, "Elderstore");
-      const pass = hash.toString(CryptoJS.enc.Utf8);
-      if (pass !== req.body.password) {
-        res.status(401).json("Wrong username or password");
-      } else {
-        const { password, ...other } = user.toJSON();
-        const getToken = jwt.sign(
-          {
-            id: user._id,
-            role: user.role,
-          },
-          process.env.JWT as Secret,
-          { expiresIn: "3d" }
-        );
-        res.json({ ...other, getToken });
-      }
-    } else {
-      res.status(401).json("Wrong username or password");
-    }
+    // const user = await UserModel.findOne({ username: req.body.username });
+    // if (user) {
+    //   const hash = CryptoJS.AES.decrypt(user.password, "Elderstore");
+    //   const pass = hash.toString(CryptoJS.enc.Utf8);
+    //   if (pass !== req.body.password) {
+    //     res.status(401).json("Wrong username or password");
+    //   } else {
+    //     const { password, ...other } = user.toJSON();
+    //     const getToken = jwt.sign(
+    //       {
+    //         id: user._id,
+    //         role: user.role,
+    //       },
+    //       process.env.JWT as Secret,
+    //       { expiresIn: "3d" }
+    //     );
+    //     res.status(200).json({ ...other, getToken });
+    //   }
+    // } else {
+    //   res.status(401).json("Wrong username or password");
+    // }
+    console.log("try block is working");
   } catch (error) {
     res.status(500).json(error);
   }
