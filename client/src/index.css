@@ -1,13 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+  .pause {
+    animation-play-state: paused;
+  }
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @apply select-none;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+input {
+  @apply placeholder:capitalize placeholder-black;
 }
+.SummerSale:hover > p {
+  @apply pause;
+}
+/* profile user */
+.imageEdit:hover label {
+  @apply opacity-100;
+}
+.divs > div {
+  @apply flex gap-5 items-center;
+}
+.divs > div > input {
+  @apply p-2 pl-4 rounded-lg;
+}
+input[disabled] {
+  @apply bg-[#dbdbdb] cursor-not-allowed;
+}
+/* profile user */
