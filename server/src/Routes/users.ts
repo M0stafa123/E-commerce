@@ -13,19 +13,23 @@ const userRoute = express.Router();
 userRoute.use(bodyParser.json());
 // Get
 userRoute.get("/find/:id?", verifyAdmin, async (req, res) => {
-  if (req.params.id) {
-    const user: USER | null = await UserModel.findById(req.params.id);
-    const { password, ...others } = user?.toJSON();
-    res.status(200).json(others);
-  } else {
-    const users: USER[] = await UserModel.find({});
-    let safe: USER[] = await Promise.all(
-      users.map((e) => {
-        const { password, ...others } = e.toJSON();
-        return others;
-      })
-    );
-    res.status(200).json(safe);
+  try {
+    if (req.params.id) {
+      const user: USER | null = await UserModel.findById(req.params.id);
+      const { password, ...others } = user?.toJSON();
+      res.status(200).json(others);
+    } else {
+      const users: USER[] = await UserModel.find({});
+      let safe: USER[] = await Promise.all(
+        users.map((e) => {
+          const { password, ...others } = e.toJSON();
+          return others;
+        })
+      );
+      res.status(200).json(safe);
+    }
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 // Update
@@ -53,6 +57,7 @@ userRoute.put("/:id", verifyAdmin, async (req, res) => {
 userRoute.delete("/:id", verifyAuth, async (req, res) => {
   try {
     await UserModel.findByIdAndDelete(req.params.id);
+    res.status(200).send("deleted successfully");
   } catch (err) {
     res.status(500).json(err);
   }

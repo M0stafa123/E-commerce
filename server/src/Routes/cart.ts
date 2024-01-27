@@ -2,7 +2,7 @@ import CartModel from "../Models/Cart";
 import express from "express";
 import bodyParser from "body-parser";
 import ProductModel from "../Models/Product";
-import { verifyAdmin, verifyAuth } from "./verifyToken";
+import { verifyAuth } from "./verifyToken";
 const cartRoute = express.Router();
 cartRoute.use(bodyParser.json());
 
@@ -43,7 +43,28 @@ cartRoute.get("/:id", verifyAuth, async (req, res) => {
     res.status(500).send(error);
   }
 });
-
+cartRoute.get("/", async (req, res) => {
+  const carts = await CartModel.find();
+  res.status(200).send(carts);
+});
+// remove from cart
+cartRoute.post("/:id", async (req, res) => {
+  try {
+    const cart = await CartModel.findOne({ userID: req.params.id });
+    if (cart) {
+      const index = cart.products.findIndex(
+        (product) => product.productID === req.body.productID
+      );
+      if (index !== -1) {
+        cart.products.splice(index, 1);
+      }
+      cart.save();
+    }
+    res.status(200).send("ok");
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 // delete all fro production
 cartRoute.delete("/", async (req, res) => {
   const destroy = await CartModel.deleteMany({});

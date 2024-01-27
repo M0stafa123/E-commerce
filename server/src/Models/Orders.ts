@@ -7,7 +7,9 @@ const OrderModel = mongoose.model(
     products: [
       {
         productID: String,
-        quantity: { type: Number, default: 1 },
+        title: String,
+        price: Number,
+        quantity: Number,
       },
     ],
     date: { type: Date, default: Date.now },

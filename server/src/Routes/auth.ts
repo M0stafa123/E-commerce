@@ -12,11 +12,11 @@ authRoute.post("/register", async (req, res) => {
   try {
     const newUser = await UserModel.create({
       username: req.body.username,
-      password: CryptoJS.AES.encrypt(req.body.password, "Elderstore"),
+      password: CryptoJS.AES.encrypt(req.body.password, process.env.SECRET as string),
       email: req.body.email,
       role: req.body.role,
     });
-    res.status(201).json(newUser);
+    res.status(201).json("Welcome to Elder Store");
   } catch (error: any) {
     if (error.code === 11000) {
       err = `${Object.keys(error.keyValue)[0]} is already in use`;
@@ -31,7 +31,7 @@ authRoute.post("/login", async (req, res) => {
   try {
     const user = await UserModel.findOne({ username: req.body.username });
     if (user) {
-      const hash = CryptoJS.AES.decrypt(user.password, "Elderstore");
+      const hash = CryptoJS.AES.decrypt(user.password, process.env.SECRET as string);
       const pass = hash.toString(CryptoJS.enc.Utf8);
       if (pass !== req.body.password) {
         res.status(401).json("Wrong username or password");
